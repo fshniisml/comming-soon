@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrefour des Livres — Bientôt disponible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Palette officielle CDL — Rouge Héritage, Transformative Teal, Noir/Blanc uniquement */
+    --rouge: #B23A2E;
+    --teal: #1F6F6B;
+    --teal-tint: #D9E6E4;
+    --paper: #FAF8F4;
+    --ink: #191714;
+    --ink-soft: #514C44;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family:'Gill Sans','Gill Sans MT','Century Gothic','Segoe UI',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:620px;
+    padding:48px 32px;
+    text-align:center;
+  }
+
+  .logos{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:36px;
+    margin-bottom:36px;
+    flex-wrap:wrap;
+  }
+  .logos img{
+    height:150px;
+    width:auto;
+    display:block;
+  }
+  .logo-sep{
+    width:1px;
+    height:110px;
+    background: var(--teal-tint);
+  }
+  @media (max-width: 520px){
+    .logo-sep{ display:none; }
+    .logos img{ height:120px; }
+  }
+
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color: var(--ink-soft);
+    font-weight:600;
+    margin-bottom:24px;
+  }
+
+  .tagline{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.1rem, 2.5vw, 1.35rem);
+    color: var(--teal);
+    margin-bottom:26px;
+  }
+
+  .desc{
+    font-family:'Source Serif 4', serif;
+    font-size:1rem;
+    color: var(--ink-soft);
+    line-height:1.75;
+    max-width:420px;
+    margin:0 auto 40px;
+  }
+
+  .rule{
+    width:36px;
+    height:2px;
+    background: var(--rouge);
+    margin:0 auto 40px;
+  }
+
+  .notify{
+    display:flex;
+    gap:10px;
+    max-width:400px;
+    margin:0 auto;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .notify input{
+    flex:1;
+    min-width:220px;
+    padding:14px 18px;
+    border:1.5px solid var(--teal-tint);
+    background:#fff;
+    border-radius:0;
+    font-family:'Gill Sans','Gill Sans MT','Century Gothic',sans-serif;
+    font-size:0.95rem;
+    color:var(--ink);
+    outline-offset:2px;
+  }
+  .notify input:focus-visible{
+    outline:2px solid var(--teal);
+  }
+  .notify button{
+    padding:14px 26px;
+    background: var(--rouge);
+    color:#FAF8F4;
+    border:none;
+    border-radius:0;
+    font-family:'Gill Sans','Gill Sans MT','Century Gothic',sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    letter-spacing:0.03em;
+    cursor:pointer;
+    transition: background 0.2s ease;
+  }
+  .notify button:hover{
+    background: var(--teal);
+  }
+  .notify button:focus-visible{
+    outline:2px solid var(--rouge);
+    outline-offset:2px;
+  }
+
+  .status{
+    margin-top:16px;
+    font-size:0.85rem;
+    color: var(--ink-soft);
+    min-height:1.2em;
+  }
+
+  footer{
+    position:absolute;
+    bottom:24px;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color: var(--ink-soft);
+    z-index:1;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="logos">
+    <img src="logo-librairie.png" alt="Carrefour des Livres — Librairie, depuis 1984">
+    <div class="logo-sep" aria-hidden="true"></div>
+    <img src="logo-editions.png" alt="Carrefour des Livres — Éditions">
+  </div>
+
+  <div class="eyebrow">Bientôt disponible</div>
+  <p class="tagline">Là où l'ancrage rencontre l'envol.</p>
+  <p class="desc">Notre librairie et notre maison d'édition prennent vie en ligne. Laissez votre email pour être averti·e dès l'ouverture.</p>
+
+  <div class="rule" aria-hidden="true"></div>
+
+  <form class="notify" id="notifyForm">
+    <input type="email" id="emailInput" placeholder="votre@email.com" required aria-label="Adresse email">
+    <button type="submit">M'avertir</button>
+  </form>
+  <div class="status" id="status" role="status"></div>
+
+</div>
+
+<footer>Librairie · Éditions</footer>
+
+<script>
+  document.getElementById('notifyForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('emailInput').value;
+    var status = document.getElementById('status');
+    if(email){
+      status.textContent = "Merci ! Nous vous préviendrons à " + email + " dès l'ouverture.";
+      document.getElementById('emailInput').value = '';
+    }
+  });
+</script>
+
+</body>
+</html>
