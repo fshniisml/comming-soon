@@ -317,10 +317,25 @@
     e.preventDefault();
     var email = document.getElementById('emailInput').value;
     var status = document.getElementById('status');
-    if(email){
+    var button = document.querySelector('.notify button');
+    if(!email) return;
+
+    button.disabled = true;
+
+    fetch('https://script.google.com/macros/s/AKfycbwPE-wVeXl5Jha4dvV8cd_Ab57c5vOZyfupY4AtxzhRiu8VHm2KyjeWQ8YQqnMyMY8/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'email=' + encodeURIComponent(email)
+    }).then(function(){
       status.textContent = translations[currentLang].thanks + email;
       document.getElementById('emailInput').value = '';
-    }
+      button.disabled = false;
+    }).catch(function(){
+      status.textContent = translations[currentLang].thanks + email;
+      document.getElementById('emailInput').value = '';
+      button.disabled = false;
+    });
   });
 </script>
 
